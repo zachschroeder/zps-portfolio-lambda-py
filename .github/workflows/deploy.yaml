@@ -1,5 +1,6 @@
 name: Deploying Lambda Function
 on:
+  workflow_call
   push:
     branches:
       - main
