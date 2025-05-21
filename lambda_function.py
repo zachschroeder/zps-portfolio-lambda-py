@@ -18,7 +18,13 @@ def lambda_handler(event, context):
         'category': 'Example'
     }
 
-    table.put_item(Item=item)
+    try:
+        table.put_item(Item=item)
+    except:
+        return {
+            'statusCode': 500,
+            'body': 'Item not inserted'
+        }
 
     return {
         'statusCode': 200,
