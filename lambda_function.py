@@ -1,10 +1,30 @@
-import json
+import boto3
+import uuid
+import os
+
+
+def main():
+    result = lambda_handler("local_event", "local_context")
+    print(result)
 
 
 def lambda_handler(event, context):
-    print('Hello world')
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('Items')
+
+    item = {
+        'id': str(uuid.uuid4()),
+        'name': 'Sample Item',
+        'category': 'Example'
+    }
+
+    table.put_item(Item=item)
 
     return {
         'statusCode': 200,
-        'body': json.dumps('Updated body')
+        'body': 'Item successfully inserted!'
     }
+
+
+if os.getenv("AWS_EXECUTION_ENV") is None:
+    main()
