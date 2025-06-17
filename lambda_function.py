@@ -1,12 +1,14 @@
-import boto3
 import uuid
+import boto3
+import json
 import os
 
 from movie import Movie
 
 
 def main():
-    result = lambda_handler("local_event", "local_context")
+    jsonDict = {"id": str(uuid.uuid4()), "title": "New Movie", "director": "Mr. Director"}
+    result = lambda_handler(jsonDict, "local_context")
     print(result)
 
 
@@ -14,12 +16,14 @@ def lambda_handler(event, context):
     dynamodb = boto3.resource("dynamodb")
     table = dynamodb.Table("Items")
 
-    movie = Movie(str(uuid.uuid4()), "New Movie", "Mr. Director")
-    print(f"Movie ID: {movie.id}")
-
+    print(f"Event: {event}")
+    
     try:
-        table.put_item(Item=movie.__dict__)
-    except:
+        # movie = Movie(**json.loads(event))
+
+        table.put_item(Item=event)
+    except Exception as e:
+        print(e)
         return {"statusCode": 500, "body": "Item not inserted"}
 
     return {"statusCode": 200, "body": "Item successfully inserted!"}
