@@ -1,16 +1,14 @@
 import uuid
 import boto3
-import json
 import os
 
 from movie import Movie
 
 
 def main():
-    jsonDict = {"id": str(uuid.uuid4()), "title": "New Movie", "director": "Mr. Director"}
-    result = lambda_handler(jsonDict, "local_context")
+    input = {"id": str(uuid.uuid4()), "title": "New Movie", "director": "Mr. Director"}
+    result = lambda_handler(input, "local_context")
     print(result)
-
 
 def lambda_handler(event, context):
     dynamodb = boto3.resource("dynamodb")
@@ -19,9 +17,11 @@ def lambda_handler(event, context):
     print(f"Event: {event}")
     
     try:
-        # movie = Movie(**json.loads(event))
-
+        Movie.validate_data(event)
         table.put_item(Item=event)
+    except ValueError as e:
+        print(e)
+        return {"statusCode": 400, "body": "Invalid data supplied"}
     except Exception as e:
         print(e)
         return {"statusCode": 500, "body": "Item not inserted"}
