@@ -7,6 +7,9 @@ class Movie:
         self.director = director
 
     def validate_data(dictionary: dict):
+        if len(dictionary) != 3:
+            raise ValueError('Invalid number of arguments')
+
         try:
             uuid.UUID(dictionary.get('id'))
         except TypeError:
