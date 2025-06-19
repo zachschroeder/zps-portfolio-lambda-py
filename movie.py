@@ -7,7 +7,10 @@ class Movie:
         self.director = director
 
     def validate_data(dictionary: dict):
-        uuid.UUID(dictionary.get('id')) # Will raise ValueError if id is bad
+        try:
+            uuid.UUID(dictionary.get('id'))
+        except TypeError:
+            raise ValueError('Invalid id')
 
         if not dictionary.get('title'):
            raise ValueError('Invalid title')
