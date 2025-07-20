@@ -15,7 +15,13 @@ def lambda_handler(event, context):
     table = dynamodb.Table("Items")
 
     print(f"Event: {event}")
-    
+
+# Temp code for reading items
+    # items = table.scan()
+    # for item in items['Items']:
+    #     print(item)
+    #     print(item.get('temp'))
+
     try:
         Movie.validate_data(event)
         table.put_item(Item=event)
