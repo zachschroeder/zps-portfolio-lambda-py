@@ -44,12 +44,12 @@ def lambda_handler(event, context):
         table.put_item(Item=event)
     except ValueError as e:
         print(e)
-        return {"statusCode": 400, "body": "Invalid data supplied"}
+        return {"status_code": 400, "body": "Invalid data supplied"}
     except Exception as e:
         print(e)
-        return {"statusCode": 500, "body": "Item not inserted"}
+        return {"status_code": 500, "body": "Item not inserted"}
 
-    return {"statusCode": 200, "body": "Item successfully inserted!"}
+    return {"status_code": 200, "body": "Item successfully inserted!"}
 
 
 if os.getenv("AWS_EXECUTION_ENV") is None:
