@@ -1,6 +1,6 @@
 #!/bin/bash
 
-requestData="{\"id\":\"$(uuidgen)\",\"title\":\"New Movie\",\"director\":\"Mr. Director\"}"
+requestData="{\"movie_id\":\"$(uuidgen)\",\"title\":\"New Movie\",\"director\":\"Mr. Director\"}"
 echo $requestData
 
 curl --header "Content-Type: application/json" \
