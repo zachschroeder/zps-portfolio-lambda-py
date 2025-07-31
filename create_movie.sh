@@ -4,9 +4,9 @@ requestData="{\"movie_id\":\"$(uuidgen)\",\"title\":\"New Movie\",\"director\":\
 echo $requestData
 
 curl --header "Content-Type: application/json" \
-  --request GET \
+  --request POST \
   --data "$requestData" \
-  https://efhveup792.execute-api.us-east-2.amazonaws.com/default
+  https://efhveup792.execute-api.us-east-2.amazonaws.com/default/movie
 
 # Without this empty print, the terminal doesn't go to a new line
 echo ""
