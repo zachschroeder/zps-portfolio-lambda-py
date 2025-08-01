@@ -19,3 +19,5 @@ jobs:
           aws-region: us-east-2
       - run: zip -j lambda_function.zip ./lambda_function.py
       - run: aws lambda update-function-code --function-name=zps-portfolio-lambda-py --zip-file=fileb://lambda_function.zip
+      - run: zip -j event_projector.zip ./event_projector/*
+      - run: aws lambda update-function-code --function-name=zps-portfolio-event-projector --zip-file=fileb://event_projector.zip
