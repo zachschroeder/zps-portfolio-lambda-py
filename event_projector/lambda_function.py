@@ -1,7 +1,7 @@
 import json
 import os
 
-from event_projector.event_data import dev_event_json
+from event_data import dev_event_json
 
 
 def main():
