@@ -1,6 +1,40 @@
+import json
+
+
+class MovieCreated:
+
+    def __init__(self, entries):
+        self.movie_id = entries["movie_id"]
+        self.title = entries["title"]
+        self.director = entries["director"]
+
+    def __str__(self):
+        return f"Movie ID: '{self.movie_id}', Title: '{self.title}', Director: '{self.director}'"
+
+
+def deserialize_dynamodb_item(dynamodb_item):
+    """Convert a DynamoDB item to a standard Python dictionary."""
+    deserialized_item = {}
+    for key, value in dynamodb_item.items():
+        # Check the type of the DynamoDB data and convert accordingly
+        if 'S' in value:  # String
+            deserialized_item[key] = value['S']
+        elif 'N' in value:  # Number
+            deserialized_item[key] = float(value['N'])  # Convert to float for numeric values
+        elif 'BOOL' in value:  # Boolean
+            deserialized_item[key] = value['BOOL']
+        elif 'L' in value:  # List
+            deserialized_item[key] = [deserialize_dynamodb_item(item) for item in value['L']]
+        elif 'M' in value:  # Map
+            deserialized_item[key] = deserialize_dynamodb_item(value['M'])
+    return deserialized_item
+
+
 def lambda_handler(event, context):
     for record in event['Records']:
         event_data = record['dynamodb']['NewImage']
-        print(event_data['title']['S'])
+        event_data_dict = deserialize_dynamodb_item(event_data)
+        movie_created = MovieCreated(event_data_dict)
+        print(movie_created)
 
     return 'Successfully processed records'
