@@ -18,6 +18,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
       - run: zip -j create_movie.zip ./create_movie/*
-      - run: aws lambda update-function-code --function-name=zps-portfolio-lambda-py --zip-file=fileb://create_movie.zip
+      - run: aws lambda update-function-code --function-name=zps-portfolio-create-movie --zip-file=fileb://create_movie.zip
       - run: zip -j event_projector.zip ./event_projector/*
       - run: aws lambda update-function-code --function-name=zps-portfolio-event-projector --zip-file=fileb://event_projector.zip
