@@ -1,12 +1,5 @@
-import uuid
 import boto3
-import os
-
-
-def main():
-    input = {"movie_id": str(uuid.uuid4()), "title": "New Movie", "director": "Mr. Director"}
-    result = lambda_handler(input, "local_context")
-    print(result)
+import uuid
 
 
 def validate_data(dictionary: dict):
@@ -50,7 +43,3 @@ def lambda_handler(event, context):
         return {"status_code": 500, "body": "Item not inserted"}
 
     return {"status_code": 200, "body": "Item successfully inserted!"}
-
-
-if os.getenv("AWS_EXECUTION_ENV") is None:
-    main()

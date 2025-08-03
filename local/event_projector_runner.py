@@ -1,3 +1,7 @@
+import json
+
+from event_projector import event_projector
+
 dev_event_json = '''
 {
    "Records":[
@@ -39,3 +43,7 @@ dev_event_json = '''
    ]
 }
 '''
+
+input = json.loads(dev_event_json)
+result = event_projector.lambda_handler(input, "local_context")
+print(result)
