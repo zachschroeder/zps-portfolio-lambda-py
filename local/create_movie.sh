@@ -1,6 +1,6 @@
 #!/bin/bash
 
-requestData="{\"movie_id\":\"$(uuidgen)\",\"title\":\"Tanner sucks\",\"director\":\"Mr. Director\"}"
+requestData="{\"movie_id\":\"$(uuidgen)\",\"title\":\"The Truman Show\",\"director\":\"Mr. Director\"}"
 echo $requestData
 
 curl --header "Content-Type: application/json" \
