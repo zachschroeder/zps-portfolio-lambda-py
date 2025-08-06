@@ -1,5 +1,7 @@
 import boto3
 
+from common.views import MovieListView
+
 
 class MovieCreated:
 
@@ -10,17 +12,6 @@ class MovieCreated:
 
     def __str__(self):
         return f"Movie ID: '{self.movie_id}', Title: '{self.title}', Director: '{self.director}'"
-
-
-class MovieListView:
-
-    def __init__(self, name="movie_list", movies=None):
-        self.name = name
-        self.movies = movies if movies is not None else []
-
-    @staticmethod
-    def from_dict(dictionary):
-        return MovieListView(dictionary["name"], dictionary["movies"])
 
 
 class MovieListProjection:
