@@ -24,12 +24,6 @@ def lambda_handler(event, context):
 
     print(f"Event: {event}")
 
-    # Temp code for reading items
-    # items = table.scan()
-    # for item in items['Items']:
-    #     print(item)
-    #     print(item.get('temp'))
-
     try:
         validate_data(event)
         event["id"] = str(uuid.uuid4())
