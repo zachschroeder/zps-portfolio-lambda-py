@@ -22,9 +22,8 @@ def deserialize_dynamodb_item(dynamodb_item):
 
 def lambda_handler(event, context):
     for record in event['Records']:
-        print("---")
-        print(record)
-        print("---")
+        if record['eventName'] != "INSERT":
+            continue
         event_data = record['dynamodb']['NewImage']
         event_data_dict = deserialize_dynamodb_item(event_data)
 
