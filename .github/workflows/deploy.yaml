@@ -25,4 +25,5 @@ jobs:
       # event_projector
       - run: zip -j event_projector.zip ./event_projector/*
       - run: zip -r event_projector.zip ./common
+      - run: zip -r event_projector.zip ./projections
       - run: aws lambda update-function-code --function-name=zps-portfolio-event-projector --zip-file=fileb://event_projector.zip
