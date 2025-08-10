@@ -10,7 +10,7 @@ class MovieListView:
         self.movies = movies if movies is not None else []
 
     # Would like to use MovieListView.__dict instead of this custom method
-    # However that results in the movies entry as an List[Movie], we want it as a List[dict]
+    # However that results in the movies entry as a List[Movie], we want it as a List[dict]
     def to_dict(self):
         return {
             "name": self.name,
