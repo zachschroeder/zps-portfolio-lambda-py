@@ -12,4 +12,4 @@ def lambda_handler(query, context):
         print(e)
         return {"status_code": 500, "body": "Could not fetch movie list"}
 
-    return {"status_code": 200, "body": view}
+    return {"status_code": 200, "movie_list": view}
