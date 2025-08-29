@@ -22,6 +22,10 @@ jobs:
       - run: zip -r create_movie.zip ./common
       - run: aws lambda update-function-code --function-name=zps-portfolio-create-movie --zip-file=fileb://create_movie.zip
 
+      # get_movie_list
+      - run: zip -j get_movie_list.zip ./get_movie_list/*
+      - run: aws lambda update-function-code --function-name=zps-portfolio-get-movie-list --zip-file=fileb://get_movie_list.zip
+
       # event_projector
       - run: zip -j event_projector.zip ./event_projector/*
       - run: zip -r event_projector.zip ./common
