@@ -1,4 +1,5 @@
 from common.events import MovieCreated
+from projections.movie_audit_projection import MovieAuditProjection
 from projections.movie_list_projection import MovieListProjection
 
 
@@ -20,6 +21,10 @@ def deserialize_dynamodb_item(dynamodb_item):
     return deserialized_item
 
 
+def get_projections():
+    return [MovieListProjection(), MovieAuditProjection()]
+
+
 def lambda_handler(event, context):
     for record in event['Records']:
         if record['eventName'] != "INSERT":
@@ -30,7 +35,8 @@ def lambda_handler(event, context):
         movie_created = MovieCreated(event_data_dict)
         print(movie_created)
 
-        projection = MovieListProjection()
-        projection.handle_event(movie_created)
+        projections = get_projections()
+        for projection in projections:
+            projection.handle_event(movie_created)
 
     return 'Successfully processed records'
